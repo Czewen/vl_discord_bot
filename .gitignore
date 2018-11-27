@@ -1,0 +1,4 @@
+#ignore config files
+config.json
+
+invite_link.txt
