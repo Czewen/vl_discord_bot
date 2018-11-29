@@ -1,5 +1,5 @@
 #ignore config files
 config.json
 
-node_modules/
+# node_modules/
 invite_link.txt
