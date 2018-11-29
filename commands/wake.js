@@ -1,4 +1,3 @@
-const botState =  require('../botState');
 const config = require('../config.json');
 
 let bot;

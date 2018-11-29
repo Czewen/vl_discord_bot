@@ -1,11 +1,11 @@
 let bot;
 
 function playNext(voiceManager){
-  console.log(voiceManager.audioQueue);
   let nextFile = voiceManager.audioQueue.shift();
 
   if(!nextFile) return;
 
+  // Non-blocking, does not stream audio from the main thread
   let dispatcher = voiceManager.connection.playFile(nextFile);
   
   dispatcher.on('end', () => {
@@ -30,6 +30,8 @@ function playNext(voiceManager){
 module.exports = {
   name: "playvoiceline",
   description: "Test play mp3 file",
+  args: false,
+  guildOnly: true,
   hookBot(b){
     bot = b;
   },
@@ -51,17 +53,6 @@ module.exports = {
       if(!voiceManager.dispatcher){
         playNext(voiceManager);
       }
-      // else{
-
-      // }  
-      // const dispatcher = voiceConnection.playFile(filePath);
-      // dispatcher.on('end',() => {
-      //   message.reply("Finished playing test song");
-      // });
-
-      // dispatcher.on('error',e => {
-      //   console.log(e);
-      // });
     }
     else{
       message.reply("I need to be in a voice channel first.");

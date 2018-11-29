@@ -15,13 +15,15 @@ function Bot(client){
 
 function init(bot){
   console.log("Bot init: ", bot.hasInit);
+  loadCommands(bot);
+  bot.client.voiceManagers = new Discord.Collection();
   bot.client.once('ready', () => {
     console.log('Ready!');
     if(!bot.hasInit){
       loadCommands(bot);
-      bot.voiceHandler = require('./voiceThread');
-      bot.voiceHandler.thread = bot.voiceHandler.initThread();
-      bot.client.voiceManagers = new Discord.Collection();
+      // bot.voiceHandler = require('./voiceThread');
+      // bot.voiceHandler.thread = bot.voiceHandler.initThread();
+      
       bot.hasInit = true;
       console.log("Finish init");
     }
