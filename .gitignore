@@ -1,4 +1,6 @@
 #ignore config files
 config.json
 
+node_modules/
+package-lock.json/
 invite_link.txt

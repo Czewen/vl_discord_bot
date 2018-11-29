@@ -1,5 +1,6 @@
-const botState = require('../botState');
 const config = require('../config.json');
+
+let bot;
 
 module.exports = {
   name: 'leave',
@@ -7,6 +8,10 @@ module.exports = {
     " Returns an error if the bot is not in a voice channel or if the sender is not in a voice channel.",
   args: false,
   guildOnly: true,
+  hookBot(b){
+    bot = b;
+  },
+
   execute(message, args){
     let guild = message.guild;
 
@@ -22,6 +27,7 @@ module.exports = {
 
       if(currChannel.members.has(config.bot_client_id)){
         currChannel.leave();
+        bot.client.voiceManagers.delete(guild.id);
         message.reply(`I have left the ${currChannel.name} voice channel`);
         return;
       } 

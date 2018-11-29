@@ -1,12 +1,21 @@
 const botState =  require('../botState');
 const config = require('../config.json');
 
+let bot;
+function VoiceManager(connection){
+  this.connection = connection;
+  this.audioQueue = [];
+}
+
 module.exports = {
   name: 'wake',
   description: 'Forces vl_discord_bot to join a voice channel .' +
     ' Returns an error if the sender is not in a voice channel',
   args: false,
   guildOnly: true,
+  hookBot(b){
+    bot = b;
+  },
   execute(message, args){
     let channel = message.channel;
     let guild = message.guild;
@@ -32,6 +41,8 @@ module.exports = {
 
       message.member.voiceChannel.join()
         .then(connection => {
+          let voiceManager = new VoiceManager(connection);
+          bot.client.voiceManagers.set(guild.id, voiceManager);
           message.reply('I have successfully connected to the channel!');
         })
         .catch(console.log);
