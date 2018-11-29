@@ -2,5 +2,5 @@
 config.json
 
 node_modules/
-package-lock.json/
+package-lock.json
 invite_link.txt
